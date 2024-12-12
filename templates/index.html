@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Merge and Excel Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload xlsm Files</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                <label for="title">Enter Title for Generated Files:</label>
+                <input type="text" name="title" id="title" placeholder="Enter title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="title2">Enter Title 2 for Generated Files:</label>
+                <input type="text" name="title2" id="title2" placeholder="Enter title 2" required>
+            </div>
+
+            <div class="form-group">
+                <label for="users_file">Upload main XLSM File:</label>
+                <input type="file" name="users_file" id="users_file" accept=".xlsm" required>
+            </div>
+            <div class="form-group">
+                <label for="details_file">Upload detail XLSM File:</label>
+                <input type="file" name="details_file" id="details_file" accept=".xlsm" multiple required>
+            </div>
+
+            <div class="form-group">
+                <label for="note1">Enter Note:</label>
+                <input type="text" name="note1" id="note1" placeholder="Enter Note" required>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" name="download_csv" value="true">Merge and Download CSV</button>
+                <button type="submit" name="download_excel" value="true">Generate and Download EXCEL</button>
+                <button type="submit" name="download_pdf" value="true">Generate and Download PDF</button>
+                <button type="submit" name="show_data" value="true">Show Merged Data</button>
+            </div>
+            <!-- Display Merged Data -->
+            {% if tables %}
+            <div class="form-group">
+                <h2>Merged Data</h2>
+                {% for table in tables %}
+                    {{ table|safe }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            </form>
+
+
+    </div>
+</body>
+</html>
